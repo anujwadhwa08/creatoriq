@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreatorIQ — System Workflow Diagram</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:     #FF0000;
+      --dark:    #111111;
+      --gray:    #555555;
+      --light:   #F8F8F8;
+      --border:  #E5E5E5;
+      --white:   #FFFFFF;
+      --blue:    #1A73E8;
+      --green:   #1A7A4A;
+      --purple:  #6C47FF;
+      --orange:  #E67E22;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      font-size: 13px;
+      line-height: 1.5;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 52px 36px;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--red);
+      padding-bottom: 18px;
+      margin-bottom: 28px;
+    }
+    .header-left h1 { font-size: 34px; font-weight: 900; letter-spacing: -1px; }
+    .header-left h1 span { color: var(--red); }
+    .header-left p { font-size: 12.5px; color: var(--gray); margin-top: 3px; }
+    .header-badge {
+      background: var(--red); color: #fff;
+      font-size: 10.5px; font-weight: 700; letter-spacing: 1px;
+      text-transform: uppercase; padding: 5px 13px; border-radius: 4px;
+    }
+
+    /* ── Section ─────────────────────────────────────────────────── */
+    .section { margin-bottom: 26px; }
+    .section-title {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 12px;
+    }
+
+    /* ── Pipeline diagram ───────────────────────────────────────── */
+    .pipeline {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+    }
+
+    /* Row helper */
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 0;
+    }
+    .row.spaced { gap: 8px; justify-content: center; }
+
+    /* Box types */
+    .box {
+      border-radius: 7px;
+      padding: 10px 14px;
+      text-align: center;
+      border: 2px solid transparent;
+      min-width: 120px;
+    }
+    .box .box-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+      text-transform: uppercase; margin-bottom: 2px;
+    }
+    .box .box-sub {
+      font-size: 9.5px; color: inherit; opacity: 0.75; line-height: 1.4;
+    }
+
+    .box-source  { background: #EEF4FF; border-color: var(--blue);   color: var(--blue); }
+    .box-agent   { background: #FFF3E0; border-color: var(--orange);  color: #B35B00; }
+    .box-core    { background: #F3F0FF; border-color: var(--purple);  color: var(--purple); }
+    .box-output  { background: #E8F8EF; border-color: var(--green);   color: var(--green); }
+    .box-storage { background: #FFF8F8; border-color: var(--red);     color: var(--red); }
+    .box-delivery { background: #111;  border-color: #111;            color: #fff; }
+
+    /* Arrow */
+    .arr {
+      font-size: 18px; color: #999; padding: 0 4px; flex-shrink: 0;
+    }
+    .arr-down {
+      text-align: center; font-size: 18px; color: #999; line-height: 1;
+      margin: 5px auto;
+    }
+
+    /* Parallel block */
+    .parallel-wrapper {
+      border: 2px dashed var(--orange);
+      border-radius: 10px;
+      padding: 14px 16px 10px;
+      background: #fff;
+      position: relative;
+      margin: 5px 0;
+    }
+    .parallel-label {
+      position: absolute;
+      top: -11px;
+      left: 14px;
+      background: var(--white);
+      padding: 0 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .parallel-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: stretch;
+    }
+    .parallel-row .box { flex: 1; min-width: 90px; }
+
+    /* Delivery row */
+    .delivery-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 5px;
+    }
+    .delivery-item {
+      background: var(--dark);
+      border-radius: 8px;
+      padding: 12px;
+      color: #fff;
+      text-align: center;
+    }
+    .delivery-item .di-title {
+      font-size: 12px; font-weight: 700; margin-bottom: 4px;
+    }
+    .delivery-item .di-sub {
+      font-size: 10px; opacity: 0.65; line-height: 1.5;
+    }
+
+    /* ── Cadence tree ────────────────────────────────────────────── */
+    .cadence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .cadence-card {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .cadence-card-head {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .c-red   { background: var(--red); }
+    .c-dark  { background: var(--dark); }
+    .c-gray  { background: #888; }
+    .cadence-card-body {
+      padding: 10px 14px;
+      background: var(--light);
+    }
+    .cadence-card-body p {
+      font-size: 11.5px;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .cadence-card-body strong { color: var(--dark); }
+
+    /* ── Agent matrix ────────────────────────────────────────────── */
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .matrix th {
+      background: var(--dark);
+      color: #fff;
+      text-align: left;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .matrix th:not(:first-child) { text-align: center; }
+    .matrix td {
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .matrix tr:last-child td { border-bottom: none; }
+    .matrix tr:nth-child(even) td { background: var(--light); }
+    .matrix td:not(:first-child) { text-align: center; }
+    .matrix td:first-child { font-weight: 600; }
+    .check { color: var(--green); font-size: 14px; }
+    .dash  { color: #ccc; }
+
+    /* ── Legend ──────────────────────────────────────────────────── */
+    .legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      color: var(--gray);
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      margin-top: 32px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer .left  { font-size: 11px; color: var(--gray); }
+    footer .left strong { color: var(--dark); }
+    footer .right { font-size: 11px; color: var(--gray); }
+
+    @media print {
+      .page { padding: 20px 28px; }
+    }
+
+    /* ── Back button ─────────────────────────────────────────── */
+    .back-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:12px; font-weight:600; color:var(--gray);
+      text-decoration:none; margin-bottom:18px;
+      padding:6px 0; border-bottom:1.5px solid transparent;
+      transition:color .15s, border-color .15s;
+    }
+    .back-btn:hover { color:var(--red); border-bottom-color:var(--red); }
+    @media print { .back-btn { display:none; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-btn" href="index.html">← Back to Portfolio</a>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Creator<span>IQ</span></h1>
+      <p>System Architecture &amp; Workflow — End-to-End Pipeline</p>
+    </div>
+    <div class="header-badge">Workflow Diagram</div>
+  </div>
+
+  <!-- PIPELINE DIAGRAM -->
+  <div class="section">
+    <div class="section-title">End-to-End Pipeline</div>
+    <div class="pipeline">
+
+      <!-- Row 1: Sources -->
+      <div class="row spaced">
+        <div class="box box-source">
+          <div class="box-label">YouTube Data API v3</div>
+          <div class="box-sub">Videos · Comments<br>Channel · Tags · Stats</div>
+        </div>
+        <div class="arr">→</div>
+        <div class="box box-source">
+          <div class="box-label">59 Creator JSON Files</div>
+          <div class="box-sub">Real data<br>Mock fallback</div>
+        </div>
+        <div class="arr">→</div>
+        <div class="box box-source">
+          <div class="box-label">Scheduler Engine</div>
+          <div class="box-sub">velocity_check<br>daily · weekly</div>
+        </div>
+        <div class="arr">→</div>
+        <div class="box box-source">
+          <div class="box-label">Creator Loader</div>
+          <div class="box-sub">Enrich · validate<br>views_per_day calc</div>
+        </div>
+      </div>
+
+      <div class="arr-down">↓</div>
+
+      <!-- Row 2: LangGraph State -->
+      <div class="row">
+        <div class="box box-core" style="min-width:400px;">
+          <div class="box-label">LangGraph StateGraph — CreatorBriefState</div>
+          <div class="box-sub">Typed state dict passed through every node · scrub_dict() security boundary at every output</div>
+        </div>
+      </div>
+
+      <div class="arr-down">↓</div>
+
+      <!-- Row 3: Parallel agents -->
+      <div class="parallel-wrapper">
+        <div class="parallel-label">parallel_agents_node — ThreadPoolExecutor (concurrent)</div>
+        <div class="parallel-row">
+          <div class="box box-agent">
+            <div class="box-label">Performance</div>
+            <div class="box-sub">views/day<br>CTR · watch %<br>duration buckets</div>
+          </div>
+          <div class="box box-agent">
+            <div class="box-label">Audience</div>
+            <div class="box-sub">Comment sentiment<br>themes · praise<br>frustration signals</div>
+          </div>
+          <div class="box box-agent">
+            <div class="box-label">Prediction</div>
+            <div class="box-sub">RAG retrieval<br>Pearson corr.<br>views · revenue est.</div>
+          </div>
+          <div class="box box-agent" style="border-style:dashed; opacity:0.7;">
+            <div class="box-label">SEO &amp; Timing ✦</div>
+            <div class="box-sub">Keywords · tags<br>best day + hour<br>✦ weekly only</div>
+          </div>
+          <div class="box box-agent" style="border-style:dashed; opacity:0.7;">
+            <div class="box-label">Originality ✦</div>
+            <div class="box-sub">MiniLM embeddings<br>ChromaDB search<br>✦ weekly only</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arr-down">↓</div>
+
+      <!-- Row 4: Synthesis -->
+      <div class="row">
+        <div class="box box-core" style="min-width:400px;">
+          <div class="box-label">synthesis_node — Claude Sonnet 3.5</div>
+          <div class="box-sub">Merges all agent outputs → narrative brief + ranked action items · typed JSON schema · waits for all parallel nodes</div>
+        </div>
+      </div>
+
+      <div class="arr-down">↓</div>
+
+      <!-- Row 5: Judge -->
+      <div class="row">
+        <div class="box box-storage" style="min-width:400px;">
+          <div class="box-label">LLM Judge — judge_llm.py (separate Claude call)</div>
+          <div class="box-sub">Specificity · Actionability · Accuracy · Clarity · Trend Honesty &nbsp;|&nbsp; scores 1–5 per dimension per report type</div>
+        </div>
+      </div>
+
+      <div class="arr-down">↓</div>
+
+      <!-- Row 6: Storage -->
+      <div class="row spaced">
+        <div class="box box-output">
+          <div class="box-label">SQLite — creatoriq.db</div>
+          <div class="box-sub">Report cache<br>Schedule state<br>Judge scores</div>
+        </div>
+        <div class="arr" style="color:#ddd">·</div>
+        <div class="box box-output">
+          <div class="box-label">ChromaDB — .chroma_db/</div>
+          <div class="box-sub">creatoriq_videos<br>creator_{id} collections<br>384-dim vectors</div>
+        </div>
+        <div class="arr" style="color:#ddd">·</div>
+        <div class="box box-output">
+          <div class="box-label">LangSmith</div>
+          <div class="box-sub">Full agent trace<br>I/O per node<br>secrets scrubbed</div>
+        </div>
+      </div>
+
+      <div class="arr-down">↓</div>
+
+      <!-- Row 7: Delivery -->
+      <div class="delivery-row">
+        <div class="delivery-item">
+          <div class="di-title">Streamlit Dashboard</div>
+          <div class="di-sub">This Week · Overview · Performance · Audience · SEO &amp; Timing · Predict Views · Originality · Comparisons</div>
+        </div>
+        <div class="delivery-item">
+          <div class="di-title">Claude Desktop (MCP)</div>
+          <div class="di-sub">FastMCP server · 8 tools + 2 resources · query any creator directly via Claude chat</div>
+        </div>
+        <div class="delivery-item">
+          <div class="di-title">LangSmith Trace View</div>
+          <div class="di-sub">Per-run agent I/O visibility · full state diff between nodes · latency per agent</div>
+        </div>
+      </div>
+
+    </div><!-- /pipeline -->
+  </div>
+
+  <!-- CADENCE LOGIC -->
+  <div class="section">
+    <div class="section-title">Cadence Decision Logic</div>
+    <div class="cadence-grid">
+      <div class="cadence-card">
+        <div class="cadence-card-head c-red">⚡ velocity_check</div>
+        <div class="cadence-card-body">
+          <p><strong>Trigger:</strong> New video uploaded AND within 48 hours</p>
+          <p><strong>Frequency:</strong> Every 4 hours during the window</p>
+          <p><strong>Agents:</strong> Performance · Audience · Prediction · Synthesis</p>
+        </div>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-card-head c-dark">📋 daily</div>
+        <div class="cadence-card-body">
+          <p><strong>Trigger:</strong> Last daily report &gt; 20 hours ago</p>
+          <p><strong>Frequency:</strong> Once per day</p>
+          <p><strong>Agents:</strong> Performance · Audience · Prediction · Synthesis</p>
+        </div>
+      </div>
+      <div class="cadence-card">
+        <div class="cadence-card-head c-gray">📅 weekly</div>
+        <div class="cadence-card-body">
+          <p><strong>Trigger:</strong> Monday + last weekly &gt; 6 days ago</p>
+          <p><strong>Frequency:</strong> Once per week</p>
+          <p><strong>Agents:</strong> All 5 — including SEO &amp; Originality</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AGENT MATRIX -->
+  <div class="section">
+    <div class="section-title">Agent Activation by Report Type</div>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th>Agent</th>
+          <th>velocity_check</th>
+          <th>daily</th>
+          <th>weekly</th>
+          <th>Primary Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Performance Agent</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td>views/day trend, duration analysis, CTR, watch %</td>
+        </tr>
+        <tr>
+          <td>Audience (Commenter) Agent</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td>Sentiment themes, praise, frustration, open questions</td>
+        </tr>
+        <tr>
+          <td>Prediction Agent</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td>RAG + Pearson → predicted views, likes, est. revenue</td>
+        </tr>
+        <tr>
+          <td>SEO &amp; Timing Agent</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="dash">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td>Keywords, tags, best posting day and hour (UTC)</td>
+        </tr>
+        <tr>
+          <td>Originality Agent</td>
+          <td><span class="dash">—</span></td>
+          <td><span class="dash">—</span></td>
+          <td><span class="check">✓</span></td>
+          <td>MiniLM embeddings + ChromaDB → uniqueness vs. 59 creators</td>
+        </tr>
+        <tr>
+          <td>Synthesis (Claude Sonnet)</td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td><span class="check">✓</span></td>
+          <td>Narrative brief + ranked action items, typed JSON</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="section">
+    <div class="section-title">Legend</div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#EEF4FF;border:2px solid #1A73E8;"></div>Data Source / Ingestion</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#F3F0FF;border:2px solid #6C47FF;"></div>LangGraph Node</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFF3E0;border:2px solid #E67E22;"></div>AI Agent (parallel)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#E8F8EF;border:2px solid #1A7A4A;"></div>Storage / Persistence</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FFF8F8;border:2px solid #FF0000;"></div>Quality Gate (LLM Judge)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#111;border:2px solid #111;"></div>Delivery Surface</div>
+      <div class="legend-item" style="color:#888;">✦ = weekly reports only &nbsp; · &nbsp; Dashed borders = conditional agents</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="left">Built by <strong>Anuj Wadhwa</strong> &nbsp;·&nbsp; 2026</div>
+    <div class="right">creatoriq.streamlit.app &nbsp;·&nbsp; LangGraph · Claude Sonnet 3.5 · ChromaDB · FastMCP</div>
+  </footer>
+
+</div>
+</body>
+</html>
