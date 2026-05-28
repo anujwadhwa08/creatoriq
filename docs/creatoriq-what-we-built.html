@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreatorIQ — What We Built</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #FF0000;
+      --dark:   #111111;
+      --gray:   #555555;
+      --light:  #F8F8F8;
+      --border: #E5E5E5;
+      --white:  #FFFFFF;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      font-size: 13px;
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 56px 40px;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 3px solid var(--red);
+      padding-bottom: 20px;
+      margin-bottom: 32px;
+    }
+    .header-left h1 {
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      color: var(--dark);
+    }
+    .header-left h1 span { color: var(--red); }
+    .header-left p {
+      font-size: 13px;
+      color: var(--gray);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+    .header-badge {
+      background: var(--red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 4px;
+      white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    /* ── Section layout ─────────────────────────────────────────── */
+    .section { margin-bottom: 28px; }
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 10px;
+    }
+
+    /* ── Problem block ──────────────────────────────────────────── */
+    .problem {
+      background: var(--light);
+      border-left: 4px solid var(--red);
+      padding: 16px 20px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px;
+      color: #333;
+      line-height: 1.7;
+    }
+
+    /* ── Overview cards ─────────────────────────────────────────── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+    .stat-card {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--red);
+      line-height: 1;
+    }
+    .stat-card .label {
+      font-size: 11px;
+      color: var(--gray);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ── Capabilities table ─────────────────────────────────────── */
+    .cap-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+    }
+    .cap-table th {
+      background: var(--dark);
+      color: #fff;
+      text-align: left;
+      padding: 8px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+    .cap-table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    .cap-table tr:last-child td { border-bottom: none; }
+    .cap-table tr:nth-child(even) td { background: var(--light); }
+    .cap-table td:first-child { font-weight: 600; color: var(--dark); width: 26%; }
+
+    /* ── Tech stack pills ───────────────────────────────────────── */
+    .tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tech-pill {
+      background: var(--dark);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+    .tech-pill.highlight {
+      background: var(--red);
+    }
+
+    /* ── Differentiators ────────────────────────────────────────── */
+    .diff-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    .diff-card {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--red);
+      border-radius: 0 0 6px 6px;
+      padding: 12px;
+    }
+    .diff-card .num {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--red);
+    }
+    .diff-card .title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 4px 0 3px;
+    }
+    .diff-card .desc {
+      font-size: 10.5px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    /* ── Phase bar ──────────────────────────────────────────────── */
+    .phase-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .phase {
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+    .phase.active {
+      background: #fff8f8;
+      border-color: var(--red);
+    }
+    .phase.planned {
+      background: var(--light);
+      opacity: 0.7;
+    }
+    .phase-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+    .phase.planned .phase-label { color: var(--gray); }
+    .phase-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .phase ul {
+      list-style: none;
+      padding: 0;
+    }
+    .phase ul li {
+      font-size: 11.5px;
+      color: var(--gray);
+      padding: 2px 0;
+    }
+    .phase ul li::before { content: "→ "; color: var(--red); font-weight: 700; }
+
+    /* ── Footer ─────────────────────────────────────────────────── */
+    footer {
+      margin-top: 36px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer .left {
+      font-size: 11px;
+      color: var(--gray);
+    }
+    footer .left strong { color: var(--dark); }
+    footer .right {
+      font-size: 11px;
+      color: var(--gray);
+    }
+
+    /* ── Print ───────────────────────────────────────────────────── */
+    @media print {
+      body { font-size: 12px; }
+      .page { padding: 24px 32px 24px; }
+      .header-left h1 { font-size: 30px; }
+    }
+
+    /* ── Back button ─────────────────────────────────────────── */
+    .back-btn {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:12px; font-weight:600; color:var(--gray);
+      text-decoration:none; margin-bottom:18px;
+      padding:6px 0; border-bottom:1.5px solid transparent;
+      transition:color .15s, border-color .15s;
+    }
+    .back-btn:hover { color:var(--red); border-bottom-color:var(--red); }
+    @media print { .back-btn { display:none; } }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-btn" href="index.html">← Back to Portfolio</a>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>Creator<span>IQ</span></h1>
+      <p>YouTube Creator Intelligence Platform &nbsp;·&nbsp; Agentic AI &nbsp;·&nbsp; Phase 1</p>
+    </div>
+    <div class="header-badge">What We Built</div>
+  </div>
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <div class="section-title">The Problem</div>
+    <div class="problem">
+      YouTube creators publish without knowing what works. There is no plain-English intelligence system
+      that looks at your channel's real data and tells you what to do next — when to post, which topics win,
+      how original your content is, and what your next video will likely earn. Existing tools surface raw
+      numbers. None of them synthesise, prioritise, or explain.
+    </div>
+  </div>
+
+  <!-- SCALE -->
+  <div class="section">
+    <div class="section-title">Scale &amp; Scope</div>
+    <div class="overview-grid">
+      <div class="stat-card">
+        <div class="num">59</div>
+        <div class="label">Real Creators Seeded</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">2,900+</div>
+        <div class="label">Videos Indexed</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">5</div>
+        <div class="label">AI Agents (parallel)</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">3</div>
+        <div class="label">Report Cadences</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAPABILITIES -->
+  <div class="section">
+    <div class="section-title">Core Capabilities</div>
+    <table class="cap-table">
+      <thead>
+        <tr>
+          <th>Capability</th>
+          <th>What it does</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Automated Reports</td>
+          <td>Three cadences: velocity check (every 4 h after upload), daily digest, full weekly brief — all determined by the scheduler, never hardcoded</td>
+        </tr>
+        <tr>
+          <td>Performance Agent</td>
+          <td>Analyses views/day, engagement %, CTR, watch time, and duration buckets — uses views_per_day not raw view_count to eliminate age bias</td>
+        </tr>
+        <tr>
+          <td>Audience Agent</td>
+          <td>Sentiment analysis on real YouTube comments; surfaces praise themes, frustration signals, and unanswered audience questions</td>
+        </tr>
+        <tr>
+          <td>SEO &amp; Timing Agent</td>
+          <td>Extracts top recurring keywords, tag coverage gaps, empirically best posting day and hours from historical data — weekly reports only</td>
+        </tr>
+        <tr>
+          <td>Prediction Agent</td>
+          <td>RAG retrieval of 5 similar past videos from ChromaDB + Pearson correlations → predicted views, likes, and estimated revenue for any planned video</td>
+        </tr>
+        <tr>
+          <td>Originality Scorer</td>
+          <td>Sentence embeddings (all-MiniLM-L6-v2) + ChromaDB vector search across the full 59-creator corpus — surfaces the most similar video from any other creator</td>
+        </tr>
+        <tr>
+          <td>Synthesis Agent</td>
+          <td>Combines all parallel agent outputs into a single narrative brief with ranked action items via Claude Sonnet 3.5, typed JSON schema output</td>
+        </tr>
+        <tr>
+          <td>LLM Judge</td>
+          <td>A separate Claude call independently scores every brief on 5 quality dimensions per report type — Specificity, Actionability, Accuracy, Clarity, Trend Honesty</td>
+        </tr>
+        <tr>
+          <td>Claude Desktop MCP</td>
+          <td>FastMCP server exposes 8 tools + 2 resources — any creator's data can be queried directly from Claude Desktop without opening the dashboard</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TECH STACK -->
+  <div class="section">
+    <div class="section-title">Tech Stack</div>
+    <div class="tech-grid">
+      <span class="tech-pill highlight">LangGraph</span>
+      <span class="tech-pill highlight">Claude Sonnet 3.5</span>
+      <span class="tech-pill highlight">FastMCP</span>
+      <span class="tech-pill">LangChain</span>
+      <span class="tech-pill">LangSmith</span>
+      <span class="tech-pill">ChromaDB</span>
+      <span class="tech-pill">sentence-transformers</span>
+      <span class="tech-pill">YouTube Data API v3</span>
+      <span class="tech-pill">Streamlit</span>
+      <span class="tech-pill">SQLite</span>
+      <span class="tech-pill">Python 3.12</span>
+      <span class="tech-pill">Streamlit Cloud</span>
+    </div>
+  </div>
+
+  <!-- DIFFERENTIATORS -->
+  <div class="section">
+    <div class="section-title">What Makes It Different</div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="num">01</div>
+        <div class="title">Signal-first</div>
+        <div class="desc">Every metric is interpreted, not just displayed. Numbers become decisions.</div>
+      </div>
+      <div class="diff-card">
+        <div class="num">02</div>
+        <div class="title">Cadence-aware</div>
+        <div class="desc">The system decides when to run — velocity / daily / weekly — not the user.</div>
+      </div>
+      <div class="diff-card">
+        <div class="num">03</div>
+        <div class="title">Cross-creator Originality</div>
+        <div class="desc">Content benchmarked against 59 creators, not just yourself.</div>
+      </div>
+      <div class="diff-card">
+        <div class="num">04</div>
+        <div class="title">Quality-gated Output</div>
+        <div class="desc">Every brief is scored by a second LLM judge before delivery.</div>
+      </div>
+      <div class="diff-card">
+        <div class="num">05</div>
+        <div class="title">0 Manual Steps</div>
+        <div class="desc">From upload detection to brief delivery — fully autonomous pipeline.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  <div class="section">
+    <div class="section-title">Phase Status</div>
+    <div class="phase-bar">
+      <div class="phase active">
+        <div class="phase-label">✅ Phase 1 — Live</div>
+        <div class="phase-title">Local + Streamlit Cloud</div>
+        <ul>
+          <li>Real YouTube public data API</li>
+          <li>59 creators, 5 agents operational</li>
+          <li>ChromaDB + SQLite persistence</li>
+          <li>LangSmith full trace observability</li>
+          <li>FastMCP Claude Desktop integration</li>
+        </ul>
+      </div>
+      <div class="phase planned">
+        <div class="phase-label">⏳ Phase 2 — Planned</div>
+        <div class="phase-title">Production SaaS</div>
+        <ul>
+          <li>Google OAuth → YouTube Analytics API</li>
+          <li>PostgreSQL + Pinecone (cloud vector DB)</li>
+          <li>Webshare residential proxies for transcripts</li>
+          <li>Stripe billing ($5 basic / $20 pro)</li>
+          <li>SendGrid email digests</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="left">
+      Built by <strong>Anuj Wadhwa</strong> &nbsp;·&nbsp; 2026
+    </div>
+    <div class="right">
+      creatoriq.streamlit.app &nbsp;·&nbsp; github.com/platformadminnew-ai/creatoriq
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
