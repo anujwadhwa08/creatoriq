@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anuj Wadhwa — AI Product Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #FF0000; --dark: #111111; --gray: #555555;
+      --light: #F8F8F8; --border: #E5E5E5; --white: #FFFFFF;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa; color: var(--dark); min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 60px 24px 80px;
+    }
+    .hero {
+      text-align: center; max-width: 640px; margin-bottom: 56px;
+    }
+    .hero .name {
+      font-size: 13px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-size: 42px; font-weight: 900; letter-spacing: -1.5px;
+      color: var(--dark); line-height: 1.1; margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--red); }
+    .hero p {
+      font-size: 15px; color: var(--gray); line-height: 1.7;
+      max-width: 520px; margin: 0 auto;
+    }
+    .tag-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      justify-content: center; margin-top: 20px;
+    }
+    .tag {
+      background: var(--dark); color: #fff; font-size: 11px;
+      font-weight: 600; padding: 4px 12px; border-radius: 20px;
+    }
+    .tag.red { background: var(--red); }
+
+    .projects { width: 100%; max-width: 860px; }
+    .project-label {
+      font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gray); margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 720px) { .cards { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: box-shadow .18s, transform .18s;
+      display: flex; flex-direction: column;
+    }
+    .card:hover { box-shadow: 0 8px 32px rgba(0,0,0,.10); transform: translateY(-3px); }
+    .card-top {
+      background: var(--dark); padding: 20px 20px 16px;
+    }
+    .card-num {
+      font-size: 10px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 16px; font-weight: 800; color: #fff; line-height: 1.25;
+    }
+    .card-title span { color: var(--red); }
+    .card-body { padding: 16px 20px 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .card-desc { font-size: 12.5px; color: var(--gray); line-height: 1.6; flex: 1; }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--red); color: #fff; text-decoration: none;
+      font-size: 11.5px; font-weight: 700; padding: 8px 16px;
+      border-radius: 6px; width: fit-content;
+    }
+    .card-link:hover { background: #cc0000; }
+    .card-link .arr { font-size: 13px; }
+
+    .divider { width: 100%; max-width: 860px; border: none; border-top: 1px solid var(--border); margin: 48px 0 32px; }
+
+    footer {
+      font-size: 11px; color: var(--gray); text-align: center;
+    }
+    footer strong { color: var(--dark); }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="name">Anuj Wadhwa</div>
+    <h1>AI Product<br><span>Manager</span> Portfolio</h1>
+    <p>
+      Building production agentic AI systems — from multi-agent orchestration
+      and LLM evaluation infrastructure to real-time creator intelligence pipelines.
+    </p>
+    <div class="tag-row">
+      <span class="tag red">Agentic AI</span>
+      <span class="tag">LangGraph</span>
+      <span class="tag">Claude Sonnet</span>
+      <span class="tag">FastMCP</span>
+      <span class="tag">ChromaDB</span>
+      <span class="tag">LangSmith</span>
+    </div>
+  </div>
+
+  <div class="projects">
+    <div class="project-label">CreatorIQ — YouTube Creator Intelligence Platform</div>
+    <div class="cards">
+
+      <a class="card" href="creatoriq-what-we-built.html">
+        <div class="card-top">
+          <div class="card-num">01 &nbsp;·&nbsp; Overview</div>
+          <div class="card-title">What We <span>Built</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            Problem, capabilities, tech stack, scale metrics, and what makes CreatorIQ
+            different from existing YouTube analytics tools.
+          </div>
+          <span class="card-link">View 1-pager <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="creatoriq-workflow-diagram.html">
+        <div class="card-top">
+          <div class="card-num">02 &nbsp;·&nbsp; Architecture</div>
+          <div class="card-title">System <span>Workflow</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            End-to-end pipeline diagram: YouTube API → LangGraph parallel agents →
+            synthesis → LLM judge → Streamlit + Claude Desktop MCP.
+          </div>
+          <span class="card-link">View diagram <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="creatoriq-output-screenshots.html">
+        <div class="card-top">
+          <div class="card-num">03 &nbsp;·&nbsp; Live Platform</div>
+          <div class="card-title">Dashboard <span>Screenshots</span></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">
+            9-screen walkthrough of the live Streamlit dashboard — actual platform
+            screenshots with creator and video data redacted for privacy.
+          </div>
+          <span class="card-link">View screenshots <span class="arr">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <footer>
+    Built by <strong>Anuj Wadhwa</strong> &nbsp;·&nbsp; 2026 &nbsp;·&nbsp;
+    Live platform: <strong>creatoriq.streamlit.app</strong>
+  </footer>
+
+</body>
+</html>
